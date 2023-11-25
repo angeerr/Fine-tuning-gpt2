@@ -6,6 +6,7 @@ from datetime import datetime
 from torch import nn
 from torch.utils.data import DataLoader
 from configs import TrainingConfig
+import logging
 
 
 class Trainer:
@@ -79,4 +80,17 @@ class SFTTrainer(Trainer):
 
     def fit(self):
         # TODO: complete the SFT training.
-        pass
+        train_data = self.train_dataloader() # TODO: How to add data
+
+        optimizer = torch.optim.AdamW(self.model.parameters(), lr=self.cfg.lr, weight_decay=1e-1)
+
+        for iter in range(self.cfg.total_epochs):
+            for i, data in enumerate(train_data):
+                if i % 100 == 0 or i == self.cfg.max_steps - 1:
+                    losses = estimate_loss() # TODO: Implementation of function
+                    logging.info(f"iter: {iter}, train loss {losses['train']:.4f}, val {losses['val']:.4f}")
+                x_train, y_train =  data
+                logits, loss = self.model(x_train, y_train)
+                optimizer.zero_grad(set_to_none=True)
+                loss.backward()
+                optimizer.step()

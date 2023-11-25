@@ -225,13 +225,21 @@ class GPT(nn.Module):
                                      cfg.vocab_size,
                                      bias=False)
 
-    def forward(self, x: Tensor, attention_mask: Tensor = None):
+    def forward(self, x: Tensor, attention_mask: Tensor = None, targets = None):
         """
         x: Shape of (B, T)
         """
         x = self.transformer(x, attention_mask)  # x = (B, T, embedding_dim)
         logits = self.lm_head(x)  # logits = (B, T, voca_size)
-        return logits
+
+        if targets is not None:
+            B, T, C = logits.shape
+            logits = logits.view(B*T, C)
+            targets = targets.view(B*T)
+            loss = F.cross_entropy(logits, targets)
+        else:
+            loss = None
+        return logits, loss
 
     @classmethod
     def from_checkpoint(cls,
