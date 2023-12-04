@@ -82,9 +82,9 @@ class SFTTrainer(Trainer):
 
     def fit(self):
         # TODO: complete the SFT training.
-        print(type(self.model))
         train_data = self.train_dataloader # TODO: How to add data
         test_data=self.test_dataloader
+        model=self.model.to(self.device)
         optimizer = torch.optim.AdamW(self.model.parameters(), lr=self.cfg.lr, weight_decay=1e-1)
         test_losses=[]
         train_losses=[]
@@ -92,33 +92,29 @@ class SFTTrainer(Trainer):
         for iter in range(self.cfg.total_epochs):
 
             for i, data in enumerate(train_data):
-
-                if i % 2 == 0 or i == self.cfg.max_steps - 1:
-                    x_train,y_train=data
-                    #x_train=x_train.to(self.device)
-                    #y_train = y_train.to(self.device)
-                    logits, loss = self.model.forward(x=x_train, targets=y_train)
-                    total_test_loss=0
-                    with torch.no_grad():
-                        for j, tes_data in enumerate(test_data):
-                            x_test, y_test = tes_data
-                            #x_test=x_test.to(self.device)
-                            #y_test=y_test.to(self.device)
-                            logits, test_loss = self.model.forward(x=x_test, targets=y_test)
-                            total_test_loss += test_loss
-                    losses['train'] =loss # TODO: Implementation of function
-                    losses['val']= total_test_loss/len(test_data)
-                    train_losses.append(loss)
-                    test_losses.append(losses['val'])
-                    print("iter={}, train loss={}, test loss={}".format(iter,losses['train'],losses['val']))
-
-
-                    logging.info(f"iter: {iter}, train loss {losses['train']:.4f}, val {losses['val']:.4f}")
+                    #logging.info(f"iter: {iter}, train loss {losses['train']:.4f}, val {losses['val']:.4f}")
                 optimizer.zero_grad(set_to_none=True)
                 x_train, y_train = data
-                logits, loss = self.model.forward(x=x_train, targets=y_train)
-
+                x_train=x_train.to(self.device)
+                y_train = y_train.to(self.device)
+                logits, loss = model.forward(x=x_train, targets=y_train)
+                if i % 100 == 0:
+                #or i == self.cfg.max_steps - 1:
+                    #logits, loss = model.forward(x=x_train,targets=y_train)
+                #loss=loss.to(self.device)
+                    #with torch.no_grad():
+                        #for j, tes_data in enumerate(test_data):
+                            #x_test, y_test = tes_data
+                            #x_test=x_test.to(self.device)
+                            #y_test=y_test.to(self.device)
+                            #logits, test_loss = self.model.forward(x=x_test, targets=y_test)
+                            #total_test_loss += test_loss
+                    #losses['train'] =loss # TODO: Implementation of function
+                    #losses['val']= total_test_loss/len(test_data)
+                    train_losses.append(loss)
+                    #test_losses.append(losses['val'])
+                    #print("iter={}, train loss={}, test loss={}".format(iter,losses['train'],losses['val']))
+                    print("iter={}, train loss={}".format(i,loss))
                 loss.backward()
                 optimizer.step()
-
-
+                optimizer.zero_grad()
