@@ -293,7 +293,9 @@ class DahoasRMStaticDataset(Dataset):
                  max_examples=None,
                  tokenizer_name='tiktoken/gpt2') -> None:
         super().__init__()
-        dataset = load_dataset("Dahoas/rm-static", split=split)
+
+        #dataset = load_dataset("Dahoas/rm-static", split=split)
+        dataset = load_dataset(r"C:\Users\14045\Desktop\rm_static", split=split)
         self.pairs = []
         self.masks = []
 
@@ -338,7 +340,9 @@ class DahoasRMStaticDataset(Dataset):
 
     @classmethod
     def save(cls, split, fp):
-        dataset = load_dataset("Dahoas/rm-static", split=split)
+#C:\Users\14045\Desktop\rm_static
+        #dataset = load_dataset("Dahoas/rm-static", split=split)
+        dataset = load_dataset(r"C:\Users\14045\Desktop\rm_static", split=split)
         examples = []
         for data in tqdm(dataset):
             examples.append(data["prompt"] + data["chosen"])
@@ -363,7 +367,8 @@ class AnthropicHHRLHFDataset(Dataset):
                  max_examples=None,
                  tokenizer_name='tiktoken/gpt2') -> None:
         super().__init__()
-        dataset = load_dataset("Anthropic/hh-rlhf", split=split)
+        #dataset = load_dataset("Anthropic/hh-rlhf", split=split)
+        dataset = load_dataset(r"C:\Users\14045\Desktop\hh-rlhf-master", split=split)
         self.pairs = []
         self.masks = []
 
@@ -404,7 +409,9 @@ class AnthropicHHRLHFDataset(Dataset):
 
     @classmethod
     def save(cls, split, fp):
-        dataset = load_dataset("Anthropic/hh-rlhf", split=split)
+        #C:\Users\14045\Desktop\hh-rlhf-master
+        #dataset = load_dataset("Anthropic/hh-rlhf", split=split)
+        dataset = load_dataset(r"C:\Users\14045\Desktop\hh-rlhf-master", split=split)
         examples = []
         for data in tqdm(dataset):
             examples.append(data["chosen"])

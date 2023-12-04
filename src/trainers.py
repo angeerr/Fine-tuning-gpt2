@@ -7,7 +7,7 @@ from torch import nn
 from torch.utils.data import DataLoader
 from configs import TrainingConfig
 import logging
-
+from evaluate import *
 
 class Trainer:
 
@@ -47,6 +47,7 @@ class SFTTrainer(Trainer):
     def __init__(self, cfg: TrainingConfig, device, model: nn.Module,
                  train_dataset, test_dataset) -> None:
         super().__init__()
+        torch.cuda.empty_cache()
         self.cfg = cfg
         self.device = device
         self.run_name = f"sft_{cfg.exp_name}_{datetime.now().strftime('%Y%m%d%H%M')}"
@@ -58,6 +59,7 @@ class SFTTrainer(Trainer):
                        batch_size=cfg.batch_size,
                        num_workers=6,
                        pin_memory=True))
+
         self.test_dataloader = iter(
             DataLoader(test_dataset,
                        batch_size=cfg.batch_size,
@@ -80,17 +82,43 @@ class SFTTrainer(Trainer):
 
     def fit(self):
         # TODO: complete the SFT training.
-        train_data = self.train_dataloader() # TODO: How to add data
-
+        print(type(self.model))
+        train_data = self.train_dataloader # TODO: How to add data
+        test_data=self.test_dataloader
         optimizer = torch.optim.AdamW(self.model.parameters(), lr=self.cfg.lr, weight_decay=1e-1)
-
+        test_losses=[]
+        train_losses=[]
+        losses={}
         for iter in range(self.cfg.total_epochs):
+
             for i, data in enumerate(train_data):
-                if i % 100 == 0 or i == self.cfg.max_steps - 1:
-                    losses = estimate_loss() # TODO: Implementation of function
+
+                if i % 2 == 0 or i == self.cfg.max_steps - 1:
+                    x_train,y_train=data
+                    #x_train=x_train.to(self.device)
+                    #y_train = y_train.to(self.device)
+                    logits, loss = self.model.forward(x=x_train, targets=y_train)
+                    total_test_loss=0
+                    with torch.no_grad():
+                        for j, tes_data in enumerate(test_data):
+                            x_test, y_test = tes_data
+                            #x_test=x_test.to(self.device)
+                            #y_test=y_test.to(self.device)
+                            logits, test_loss = self.model.forward(x=x_test, targets=y_test)
+                            total_test_loss += test_loss
+                    losses['train'] =loss # TODO: Implementation of function
+                    losses['val']= total_test_loss/len(test_data)
+                    train_losses.append(loss)
+                    test_losses.append(losses['val'])
+                    print("iter={}, train loss={}, test loss={}".format(iter,losses['train'],losses['val']))
+
+
                     logging.info(f"iter: {iter}, train loss {losses['train']:.4f}, val {losses['val']:.4f}")
-                x_train, y_train =  data
-                logits, loss = self.model(x_train, y_train)
                 optimizer.zero_grad(set_to_none=True)
+                x_train, y_train = data
+                logits, loss = self.model.forward(x=x_train, targets=y_train)
+
                 loss.backward()
                 optimizer.step()
+
+

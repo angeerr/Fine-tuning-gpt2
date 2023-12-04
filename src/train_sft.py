@@ -4,10 +4,12 @@ from trainers import SFTTrainer
 from gpt import GPT
 from dataset import EYLSFTStaticDataset
 from configs import get_configs
+from torch.utils.data import random_split
 
 # Avoid GPU version conflict (For Kaggle GPU only). Comment below two lines if you use local machine in order to speed up training.
 import torch._dynamo.config
 torch._dynamo.config.suppress_errors = True
+
 
 def train(pretrain, batch_size, exp_name):
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -27,6 +29,14 @@ def train(pretrain, batch_size, exp_name):
                                    split='train',
                                    max_examples=None,
                                    tokenizer_name="tiktoken/gpt2")
+    #train_size = int(0.8 * train_ds.__len__())  # use 80% data in train_dataset as train dataset
+
+    # compute the size of validation set
+    #val_size = train_ds.__len__() - train_size  # use 20% data in train_dataset as validation dataset
+    #print(train_size, val_size, train_ds.__len__())
+    # use random_split to split train dataset and validation dataset
+    #train_ds, val_ds = random_split(train_ds, [train_size, val_size])
+
     test_ds = EYLSFTStaticDataset(block_size=1024,
                                   split='test',
                                   max_examples=None,

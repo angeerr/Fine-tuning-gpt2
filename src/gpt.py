@@ -260,7 +260,7 @@ class GPT(nn.Module):
         """
         https://github.com/karpathy/nanoGPT/blob/master/model.py#L213
         """
-
+        print(cfg.hf_model)
         def convert_state_key(k):
             huggingface_names = {
                 "token_embedding_layer": "wte",
@@ -302,7 +302,8 @@ class GPT(nn.Module):
         #         fp.write(k + '\n')
 
         from transformers import GPT2LMHeadModel
-        model_pretrained = GPT2LMHeadModel.from_pretrained(cfg.hf_model)
+        model_pretrained = GPT2LMHeadModel.from_pretrained(pretrained_model_name_or_path=r"D:\models\355M")
+        #model_pretrained = GPT2LMHeadModel.from_pretrained(cfg.hf_model)
         pretrained_states = model_pretrained.state_dict()
 
         pretrained_states_keys = [
