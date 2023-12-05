@@ -83,12 +83,17 @@ class SFTTrainer(Trainer):
     def fit(self):
         # TODO: complete the SFT training.
         train_data = self.train_dataloader # TODO: How to add data
-        test_data=self.test_dataloader
-        model=self.model.to(self.device)
+        #test_data=self.test_dataloader
+
+        #model=self.model.to(self.device)
+        model = nn.DataParallel(self.model)
+        model=model.to('cuda')
         optimizer = torch.optim.AdamW(self.model.parameters(), lr=self.cfg.lr, weight_decay=1e-1)
-        test_losses=[]
+        #test_losses=[]
         train_losses=[]
-        losses={}
+        #losses={}
+        #train_data=train_data.to(self.device)
+
         for iter in range(self.cfg.total_epochs):
 
             for i, data in enumerate(train_data):

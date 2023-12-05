@@ -4,7 +4,6 @@ from trainers import SFTTrainer
 from gpt import GPT
 from dataset import EYLSFTStaticDataset
 from configs import get_configs
-from torch.utils.data import random_split
 
 # Avoid GPU version conflict (For Kaggle GPU only). Comment below two lines if you use local machine in order to speed up training.
 import torch._dynamo.config
@@ -14,7 +13,7 @@ torch._dynamo.config.suppress_errors = True
 def train(pretrain, batch_size, exp_name):
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     
-    cfg = get_configs("gpt2-medium") # change this line to select different models
+    cfg = get_configs("gpt2-medium/lora") # change this line to select different models
     cfg.max_steps = 200000 // batch_size
     cfg.batch_size = batch_size
     cfg.pretrain = pretrain
