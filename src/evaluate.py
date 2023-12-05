@@ -46,9 +46,8 @@ def generate_gpt2(model, prompt, device):
 @click.option('--sft', '-s')
 @click.option('--ppo', '-p')
 def main(sft, ppo):
-    #keys = json.load(open("openai.key"))
-    # "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"
-    os.environ["OPENAI_API_KEY"] = "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"#keys["OPENAI_API_KEY"]
+    keys = json.load(open("openai.key"))
+    os.environ["OPENAI_API_KEY"] = keys["OPENAI_API_KEY"]#change the line with openai api key
 
     with open("prompts.csv", encoding='utf-8') as fp:
         reader = csv.DictReader(fp)
