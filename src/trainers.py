@@ -8,6 +8,7 @@ from torch.utils.data import DataLoader
 from configs import TrainingConfig
 import logging
 from evaluate import *
+#class DPOTrainer:
 
 class Trainer:
 
@@ -85,9 +86,9 @@ class SFTTrainer(Trainer):
         train_data = self.train_dataloader # TODO: How to add data
         #test_data=self.test_dataloader
 
-        #model=self.model.to(self.device)
-        model = nn.DataParallel(self.model)
-        model=model.to('cuda')
+        model=self.model.to(self.device)
+        #model = nn.DataParallel(self.model)
+        #model=model.to('cuda')
         optimizer = torch.optim.AdamW(self.model.parameters(), lr=self.cfg.lr, weight_decay=1e-1)
         #test_losses=[]
         train_losses=[]
@@ -102,7 +103,10 @@ class SFTTrainer(Trainer):
                 x_train, y_train = data
                 x_train=x_train.to(self.device)
                 y_train = y_train.to(self.device)
-                logits, loss = model.forward(x=x_train, targets=y_train)
+                n=len(x_train)
+                mask = torch.tril(torch.ones(n, n)).bool()
+                mask=mask.to(self.device)
+                logits, loss = model.forward(x=x_train,attention_mask=mask,targets=y_train)
                 if i % 100 == 0:
                 #or i == self.cfg.max_steps - 1:
                     #logits, loss = model.forward(x=x_train,targets=y_train)
@@ -114,12 +118,13 @@ class SFTTrainer(Trainer):
                             #y_test=y_test.to(self.device)
                             #logits, test_loss = self.model.forward(x=x_test, targets=y_test)
                             #total_test_loss += test_loss
-                    #losses['train'] =loss # TODO: Implementation of function
+                    #losses['train'] =loss
+                    ## TODO: Implementation of function
                     #losses['val']= total_test_loss/len(test_data)
                     train_losses.append(loss)
                     #test_losses.append(losses['val'])
                     #print("iter={}, train loss={}, test loss={}".format(iter,losses['train'],losses['val']))
-                    print("iter={}, train loss={}".format(i,loss))
+                    print("i={}, train loss={}".format(i,loss))
                 loss.backward()
                 optimizer.step()
                 optimizer.zero_grad()
