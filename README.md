@@ -60,11 +60,11 @@ Process:
   | gpt2-medium/lora test error | <link> |
 
 ❗ `gpt2-medium` and `gpt2-medium/lora` are trained based on same hyper-parameter settings, optimizer: AdamW (weight decay)
-  | Lora Rank | Value |
-  | ---- | ---- |
-  | lora rank = 1 | <link> |
-  | lora rank = 10 | <link> |
-  | lora rank = 100 | <link> |
+  | Lora Rank | Figure Link | Dialogue quality |
+  | ---- | ---- | ---- |
+  | lora rank = 1 | <link> | |
+  | lora rank = 10 | <link> | |
+  | lora rank = 100 | <link> | |
 
 ❗ Different lora rank training are based on same hyper-parameter settings, optimizer: AdamW (weight decay)
 
