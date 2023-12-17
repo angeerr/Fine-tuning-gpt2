@@ -11,7 +11,9 @@ finish:
 - trainer.py train a simple model @jiangan
 - rest @zhuoheng
 
-
+Note:
+-
+⚠ Since the code is runned on the computation node (single GPU version) on clusters, thus, some codes are ignorable when being runned on your server or kaggle
 
 Process:
 -
