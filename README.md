@@ -52,7 +52,7 @@ Process:
 *4.2(C)*
 - Run `train_sft.py`. The code of lora has been integrated by TA, only change `cfg = get_configs("gpt2-medium")` to `cfg = get_configs("gpt2-medium/lora")` in train_sft.py to add lora on gpt2-medium
 - Comparsion
-  | Setting | Value |
+  | Setting | Figure Link |
   | ---- | ---- |
   | gpt2-medium train error | <link> |
   | gpt2-medium test error | <link> |
@@ -60,7 +60,7 @@ Process:
   | gpt2-medium/lora test error | <link> |
 
 ❗ `gpt2-medium` and `gpt2-medium/lora` are trained based on same hyper-parameter settings, optimizer: AdamW (weight decay)
-  | Lora Rank | Figure Link | Dialogue quality |
+  | Lora Rank | Figure Link | Dialogue Quality |
   | ---- | ---- | ---- |
   | lora rank = 1 | <link> | |
   | lora rank = 10 | <link> | |
@@ -71,16 +71,12 @@ Process:
 *4.2(A)*
 - Run `train_sft.py`. Only need to switch the optimizer from AdamW to others (already included in `fit()` function in `trainers.py`) and then test on different optimizers
 - Comparsion
-  | Optimizers | Value |
-  | ---- | ---- |
-  | SGD | <link> |
-  | SGD GPU memory | $1663992832$ bytes |
-  | SGD with Momentum (momentum=0.9) | <link> |
-  | SGD with Momentum (momentum=0.9) GPU memory| $1877104128$ bytes |
-  | SGD with Nesterov (momentum=0.9) | <link> |
-  | SGD with Nesterov (momentum=0.9) GPU memory | $1877104128$ bytes |
-  | AdamW ($\beta_1=0.9$, $\beta_2=0.95$) | <link> |
-  | AdamW ($\beta_1=0.9$, $\beta_2=0.95$) GPU memory | |
+  | Optimizers | Figure Link | GPU Memory |
+  | ---- | ---- | ---- |
+  | SGD | <link> | $1663992832$ bytes |
+  | SGD with Momentum (momentum=0.9) | <link> | $1877104128$ bytes |
+  | SGD with Nesterov (momentum=0.9) | <link> | $1877104128$ bytes |
+  | AdamW ($\beta_1=0.9$, $\beta_2=0.95$) | <link> | |
 ❗ Models with different optimizers are trained with the same weight decay and hyper-parameter settings
 
 ❗ 4.2(A) experiments are conducted based on gpt2-medium/lora (save time). In the report this should be specified explitcitly
