@@ -76,9 +76,9 @@ Process:
   | SGD | <link> |
   | SGD GPU memory | $1663992832$ bytes |
   | SGD with Momentum (momentum=0.9) | <link> |
-  | SGD with Momentum (momentum=0.9) GPU memory| |
+  | SGD with Momentum (momentum=0.9) GPU memory| $1877104128$ bytes |
   | SGD with Nesterov (momentum=0.9) | <link> |
-  | SGD with Nesterov (momentum=0.9) GPU memory | |
+  | SGD with Nesterov (momentum=0.9) GPU memory | $1877104128$ bytes |
   | AdamW ($\beta_1=0.9$, $\beta_2=0.95$) | <link> |
   | AdamW ($\beta_1=0.9$, $\beta_2=0.95$) GPU memory | |
 ❗ Models with different optimizers are trained with the same weight decay and hyper-parameter settings
