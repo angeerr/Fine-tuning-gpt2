@@ -36,6 +36,6 @@ Process:
 4.2(B)
 - Run eval.py to evaluate the performance of vanilla gpt2-medium and sft gpt2-medium
   
-😊 eval.py leverages the reward model ([OpenAssistant/rewardmodel-deberta-v3-large-v2]<https://huggingface.co/OpenAssistant/reward-model-deberta-v3-large-v2>) to evaluate the performance instead of using Openai Apikey  
+😊 eval.py leverages the reward model [OpenAssistant/rewardmodel-deberta-v3-large-v2](<https://huggingface.co/OpenAssistant/reward-model-deberta-v3-large-v2>) to evaluate the performance instead of using Openai Apikey  
 
 🎨 eval.py is modified based on evaluate.py  
