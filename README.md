@@ -19,7 +19,8 @@ Note:
 
 Process:
 -
-**Base Tasks**
+**Base Tasks**  
+
 *4.1 (A)*
 - Run `prepare_sft_dataset.py` to generate two files: sft_train.json & sft_test.json
 - Train gpt2-medium
