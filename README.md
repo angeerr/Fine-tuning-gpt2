@@ -9,6 +9,7 @@ To do:
 finish:
 -
 -trainer.py train a simple model @jiangan
+
 -rest @zhuoheng
 
 
