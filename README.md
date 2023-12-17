@@ -62,6 +62,7 @@ Process:
   | lora rank = 1 | <link> |
   | lora rank = 10 | <link> |
   | lora rank = 100 | <link> |
+
 ❗ Different lora rank training are based on same hyper-parameter settings, optimizer: AdamW (weight decay)
 
 *4.2(a)*
