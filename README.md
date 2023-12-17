@@ -13,7 +13,9 @@ finish:
 
 Note:
 -
-⚠ Since the code is runned on the computation node (single GPU version) on clusters, thus, some codes are ignorable when being runned on your server or kaggle
+⚠ 
+- Since the code is runned on the computation node (single GPU version) on clusters, thus, some codes are ignorable when being runned on your server or kaggle. 
+- Some model paths should be change according to your local environments. 
 
 Process:
 -
