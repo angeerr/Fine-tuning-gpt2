@@ -55,6 +55,8 @@ Process:
   | ---- | ---- |
   | gpt2-medium train error | <link> |
   | gpt2-medium/lora train error | <link> |
+  | gpt2-medium test error | <link> |
+  | gpt2-medium/lora test error | <link> |
 
 ❗ `gpt2-medium` and `gpt2-medium/lora` are trained based on same hyper-parameter settings, optimizer: AdamW (weight decay)
   | Lora Rank | Value |
