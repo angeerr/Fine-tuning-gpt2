@@ -74,7 +74,7 @@ Process:
   | Optimizers | Value |
   | ---- | ---- |
   | SGD | <link> |
-  | SGD GPU memory | |
+  | SGD GPU memory | $1663992832$ bytes |
   | SGD with Momentum (momentum=0.9) | <link> |
   | SGD with Momentum (momentum=0.9) GPU memory| |
   | SGD with Nesterov (momentum=0.9) | <link> |
