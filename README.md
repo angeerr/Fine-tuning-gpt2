@@ -44,10 +44,11 @@ Process:
   
 🚀 `eval.py` (modified on `evaluate.py`) leverages the reward model [OpenAssistant/rewardmodel-deberta-v3-large-v2](<https://huggingface.co/OpenAssistant/reward-model-deberta-v3-large-v2>) to evaluate the performance instead of using Openai Apikey  
 
-4.1(C)
+*4.1(C)*
 - Insights: Summarize what you find based on the results or settings from 4.1(A) and 4.1(B).
 
-**Explorations**
+**Explorations**  
+  
 *4.2(C)*
 - Run `train_sft.py`. The code of lora has been integrated by TA, only change `cfg = get_configs("gpt2-medium")` to `cfg = get_configs("gpt2-medium/lora")` in train_sft.py to add lora on gpt2-medium
 - Comparsion
