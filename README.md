@@ -71,7 +71,7 @@ Process:
 ❗ Different lora rank training are based on same hyper-parameter settings, optimizer: AdamW (weight decay)
 
 *4.2(A)*
-- Run `train_sft.py`. Only need to switch the optimizer from AdamW to others (already included in `fit()` function in `trainers.py`) and then test on different optimizers on gpt2-medium/lora (save time)
+- Run `train_sft.py`. Only need to switch the optimizer from AdamW to others (already included in `fit()` function in `trainers.py`) and then test on different optimizers
 - Comparsion
   | Optimizers | Value |
   | ---- | ---- |
@@ -80,5 +80,6 @@ Process:
   | SGD with Nesterov (momentum=0.9)| <link> |
   | AdamW ($\beta_1=0.9$, $\beta_2=0.95$) | <link> |
 ❗ Models with different optimizers are trained with the same weight decay and hyper-parameter settings
+❗ 4.2(A) experiments are conducted based on gpt2-medium/lora (save time). In the report this should be specified explitcitly
   
   
