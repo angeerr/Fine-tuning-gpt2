@@ -8,9 +8,8 @@ To do:
 
 finish:
 -
--trainer.py train a simple model @jiangan
-
--rest @zhuoheng
+- trainer.py train a simple model @jiangan
+- rest @zhuoheng
 
 
 
@@ -20,9 +19,13 @@ Process:
 - Train gpt2-medium
   | Detail | Value |
   | ---- | ---- |
-  | model | gpt2-medium |
-  | Hyper-parameter | <link> |
+  | Model | gpt2-medium |
+  | Train iteration | 160000 |
+  | Batch size | 8 |
+  | Optimizer | AdamW (weight decay) |
+  | Test step | every 200 steps |
+  | Other Hyper-parameter | <link> |
   | Training Record | <link> |
   | Train error | <link> |
   | Test error | <link> |
-  
+❗ 
