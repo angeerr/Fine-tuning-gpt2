@@ -62,8 +62,9 @@ Process:
 ❗ `gpt2-medium` and `gpt2-medium/lora` are trained based on same hyper-parameter settings, optimizer: AdamW (weight decay)
   | Lora Rank | Figure Link | Dialogue Quality |
   | ---- | ---- | ---- |
-  | lora rank = 1 | <link> | |
-  | lora rank = 10 | <link> | |
+  | Full paramters | <link> | $0.85$ |
+  | lora rank = 1 | <link> | $0.51$ |
+  | lora rank = 10 | <link> | $0.45$ |
   | lora rank = 100 | <link> | |
 
 ❗ Different lora rank training are based on same hyper-parameter settings, optimizer: AdamW (weight decay)
