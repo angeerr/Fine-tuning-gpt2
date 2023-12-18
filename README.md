@@ -32,15 +32,15 @@ Process:
   | Optimizer | AdamW (weight decay) |
   | Test step | 200 steps |
   | Test data | 240 |
-  | Other Hyper-parameter | <link> |
-  | Training Record | <link> |
-  | Train error | <link> |
-  | Test error | <link> |
+  | Other Hyper-parameter | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW/hyperparams.json> |
+  | Training Record | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW/metrics.json> |
+  | Train error | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW/train.jpg> |
+  | Test error | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW/test.jpg> |
 ❗ Train 20000 (Train iteration / batch size) steps, and test in every 200 steps
 
   
 *4.1(B)*
-- Run `eval.py` to evaluate the performance of vanilla gpt2-medium and sft gpt2-medium, [result screenshot]<link>, [result detail]<link>
+- Run `eval.py` to evaluate the performance of vanilla gpt2-medium and sft gpt2-medium, [result detail]<https://github.com/roy-mzh/MDS5210-23fall/tree/main/src/eval_result>
   
 🚀 `eval.py` (modified on `evaluate.py`) leverages the reward model [OpenAssistant/rewardmodel-deberta-v3-large-v2](<https://huggingface.co/OpenAssistant/reward-model-deberta-v3-large-v2>) to evaluate the performance instead of using Openai Apikey  
 
@@ -54,18 +54,18 @@ Process:
 - Comparsion
   | Setting | Figure Link |
   | ---- | ---- |
-  | gpt2-medium train error | <link> |
-  | gpt2-medium test error | <link> |
-  | gpt2-medium/lora train error | <link> |
-  | gpt2-medium/lora test error | <link> |
+  | gpt2-medium train error | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW/train.jpg> |
+  | gpt2-medium test error | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW/test.jpg> |
+  | gpt2-medium/lora train error | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW_lora1/train.jpg> |
+  | gpt2-medium/lora test error | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW_lora1/test.jpg> |
 
 ❗ `gpt2-medium` and `gpt2-medium/lora` are trained based on same hyper-parameter settings, optimizer: AdamW (weight decay)
   | Lora Rank | Figure Link | Dialogue Quality |
   | ---- | ---- | ---- |
-  | Full paramters | <link> | $0.85$ |
-  | lora rank = 1 | <link> | $0.51$ |
-  | lora rank = 10 | <link> | $0.45$ |
-  | lora rank = 100 | <link> | |
+  | Full paramters | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW/> | $0.85$ |
+  | lora rank = 1 | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW_lora1/> | $0.51$ |
+  | lora rank = 10 | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW_lora10/> | $0.45$ |
+  | lora rank = 100 | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW_lora100/> | $0.49$ |
 
 ❗ Different lora rank training are based on same hyper-parameter settings, optimizer: AdamW (weight decay)
 
@@ -74,10 +74,10 @@ Process:
 - Comparsion
   | Optimizers | Figure Link | GPU Memory |
   | ---- | ---- | ---- |
-  | SGD | <link> | $1663992832$ bytes |
-  | SGD with Momentum (momentum=0.9) | <link> | $1877104128$ bytes |
-  | SGD with Nesterov (momentum=0.9) | <link> | $1877104128$ bytes |
-  | AdamW ($\beta_1=0.9$, $\beta_2=0.95$) | <link> | $2090215424$ bytes |
+  | SGD | [Here]<https://github.com/roy-mzh/MDS5210-23fall/tree/main/src/runs/SGD_lora1> | $1663992832$ bytes |
+  | SGD with Momentum (momentum=0.9) | [Here]<https://github.com/roy-mzh/MDS5210-23fall/tree/main/src/runs/SGD_Mom_lora1> | $1877104128$ bytes |
+  | SGD with Nesterov (momentum=0.9) | [Here]<https://github.com/roy-mzh/MDS5210-23fall/tree/main/src/runs/SGD_Nest_lora1> | $1877104128$ bytes |
+  | AdamW ($\beta_1=0.9$, $\beta_2=0.95$) | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW/> | $2090215424$ bytes |
   
 ❗ Models with different optimizers are trained with the same weight decay and hyper-parameter settings
 
