@@ -54,7 +54,7 @@ Process:
 - Comparsion
   | Setting | Figure Link |
   | ---- | ---- |
-  | gpt2-medium train error | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW/train.jpg> |
+  | gpt2-medium train error | [Here](<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW/train.jpg>) |
   | gpt2-medium test error | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW/test.jpg> |
   | gpt2-medium/lora train error | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW_lora1/train.jpg> |
   | gpt2-medium/lora test error | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW_lora1/test.jpg> |
