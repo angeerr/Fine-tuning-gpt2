@@ -55,17 +55,17 @@ Process:
   | Setting | Figure Link |
   | ---- | ---- |
   | gpt2-medium train error | [Here](<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW/train.jpg>) |
-  | gpt2-medium test error | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW/test.jpg> |
-  | gpt2-medium/lora train error | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW_lora1/train.jpg> |
-  | gpt2-medium/lora test error | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW_lora1/test.jpg> |
+  | gpt2-medium test error | [Here](<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW/test.jpg>) |
+  | gpt2-medium/lora train error | [Here](<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW_lora1/train.jpg>) |
+  | gpt2-medium/lora test error | [Here](<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW_lora1/test.jpg>) |
 
 ❗ `gpt2-medium` and `gpt2-medium/lora` are trained based on same hyper-parameter settings, optimizer: AdamW (weight decay)
   | Lora Rank | Figure Link | Dialogue Quality |
   | ---- | ---- | ---- |
-  | Full paramters | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW/> | $0.85$ |
-  | lora rank = 1 | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW_lora1/> | $0.51$ |
-  | lora rank = 10 | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW_lora10/> | $0.45$ |
-  | lora rank = 100 | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW_lora100/> | $0.49$ |
+  | Full paramters | [Here](<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW/>) | $0.85$ |
+  | lora rank = 1 | [Here](<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW_lora1/> )| $0.51$ |
+  | lora rank = 10 | [Here](<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW_lora10/>) | $0.45$ |
+  | lora rank = 100 | [Here](<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW_lora100/>) | $0.49$ |
 
 ❗ Different lora rank training are based on same hyper-parameter settings, optimizer: AdamW (weight decay)
 
@@ -74,10 +74,10 @@ Process:
 - Comparsion
   | Optimizers | Figure Link | GPU Memory |
   | ---- | ---- | ---- |
-  | SGD | [Here]<https://github.com/roy-mzh/MDS5210-23fall/tree/main/src/runs/SGD_lora1> | $1663992832$ bytes |
-  | SGD with Momentum (momentum=0.9) | [Here]<https://github.com/roy-mzh/MDS5210-23fall/tree/main/src/runs/SGD_Mom_lora1> | $1877104128$ bytes |
-  | SGD with Nesterov (momentum=0.9) | [Here]<https://github.com/roy-mzh/MDS5210-23fall/tree/main/src/runs/SGD_Nest_lora1> | $1877104128$ bytes |
-  | AdamW ($\beta_1=0.9$, $\beta_2=0.95$) | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW/> | $2090215424$ bytes |
+  | SGD | [Here](<https://github.com/roy-mzh/MDS5210-23fall/tree/main/src/runs/SGD_lora1>) | $1663992832$ bytes |
+  | SGD with Momentum (momentum=0.9) | [Here](<https://github.com/roy-mzh/MDS5210-23fall/tree/main/src/runs/SGD_Mom_lora1>) | $1877104128$ bytes |
+  | SGD with Nesterov (momentum=0.9) | [Here](<https://github.com/roy-mzh/MDS5210-23fall/tree/main/src/runs/SGD_Nest_lora1>) | $1877104128$ bytes |
+  | AdamW ($\beta_1=0.9$, $\beta_2=0.95$) | [Here](<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW/>) | $2090215424$ bytes |
   
 ❗ Models with different optimizers are trained with the same weight decay and hyper-parameter settings
 
