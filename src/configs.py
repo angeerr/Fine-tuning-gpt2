@@ -50,7 +50,7 @@ def get_configs(name) -> TrainingConfig:
             block_size=1024,
             vocab_size=50257,
             model_name="gpt2-medium",
-            hf_model="gpt2-medium",
+            hf_model="/mntcephfs/lab_data/mazhuoheng/MDS5210-23fall/src/gpt2-medium/", #gpt2-medium
         )
     elif name == "gpt2-medium/dropout":
         return TrainingConfig(
@@ -75,7 +75,7 @@ def get_configs(name) -> TrainingConfig:
             vocab_size=50257,
             lora_rank=1,
             model_name="gpt2-medium/lora",
-            hf_model="gpt2-medium",
+            hf_model= "/mntcephfs/lab_data/mazhuoheng/MDS5210-23fall/src/gpt2-medium/", #"gpt2-medium",
             finetune_method="lora",
         )
     elif name == 'gpt2-large':

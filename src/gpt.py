@@ -232,6 +232,8 @@ class GPT(nn.Module):
         x = self.transformer(x, attention_mask)  # x = (B, T, embedding_dim)
         logits = self.lm_head(x)  # logits = (B, T, voca_size)
 
+        # return logits
+
         if targets is not None:
             B, T, C = logits.shape
             logits = logits.view(B*T, C)
@@ -252,7 +254,7 @@ class GPT(nn.Module):
         checkpoint = torch.load(ckpt_path, map_location="cpu")
         # for k, v in checkpoint["model_state_dict"].items():
         #     print(k)
-        model.load_state_dict(checkpoint["model_state_dict"], strict=True)
+        model.load_state_dict(checkpoint["model_state_dict"], strict=False)
         return model
 
     @classmethod
@@ -302,7 +304,7 @@ class GPT(nn.Module):
         #         fp.write(k + '\n')
 
         from transformers import GPT2LMHeadModel
-        model_pretrained = GPT2LMHeadModel.from_pretrained(pretrained_model_name_or_path=r"D:\models\355M")
+        model_pretrained = GPT2LMHeadModel.from_pretrained(pretrained_model_name_or_path="/mntcephfs/lab_data/mazhuoheng/MDS5210-23fall/src/gpt2-medium") # pretrained_model_name_or_path=r"D:\models\355M"
         #model_pretrained = GPT2LMHeadModel.from_pretrained(cfg.hf_model)
         pretrained_states = model_pretrained.state_dict()
 
@@ -352,7 +354,7 @@ class GPT(nn.Module):
             # forward the model to get the logits for the index in the sequence
             logits = self(idx_cond)
             # pluck the logits at the final step and scale by desired temperature
-            logits = logits[:, -1, :] / temperature
+            logits = logits[0][:, -1, :] / temperature
             # optionally crop the logits to only the top k options
             if top_k is not None:
                 v, _ = torch.topk(logits, min(top_k, logits.size(-1)))

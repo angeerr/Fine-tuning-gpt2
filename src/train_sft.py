@@ -4,6 +4,8 @@ from trainers import SFTTrainer
 from gpt import GPT
 from dataset import EYLSFTStaticDataset
 from configs import get_configs
+import logging
+from utils import *
 
 # Avoid GPU version conflict (For Kaggle GPU only). Comment below two lines if you use local machine in order to speed up training.
 import torch._dynamo.config
@@ -13,11 +15,11 @@ torch._dynamo.config.suppress_errors = True
 def train(pretrain, batch_size, exp_name):
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     
-    cfg = get_configs("gpt2-medium/lora") # change this line to select different models
-    cfg.max_steps = 200000 // batch_size
+    cfg = get_configs("gpt2-medium/lora") # change this line to select different models #gpt2-medium/lora
+    cfg.max_steps = 160000 // batch_size
     cfg.batch_size = batch_size
     cfg.pretrain = pretrain
-    assert pretrain == "huggingface" # make sure the pretrained model is in the format of huggingface.
+    #assert pretrain == "huggingface" # make sure the pretrained model is in the format of huggingface.
     cfg.exp_name = exp_name
 
     # load the pretrained GPT model based on the configuration
@@ -42,17 +44,35 @@ def train(pretrain, batch_size, exp_name):
                                   tokenizer_name="tiktoken/gpt2")
     
     trainer = SFTTrainer(cfg, device, model, train_ds, test_ds)
-    trainer.fit()
+    lossList = trainer.fit()
+    return lossList
 
 
 @click.command()
 @click.option('--pretrain', '-p', default="huggingface")
-@click.option('--batch-size', '-b', default=1)
+@click.option('--batch-size', '-b', default=8)
 @click.option('--exp-name', '-n', default="default")
 def main(pretrain, batch_size, exp_name):
     torch.manual_seed(1234)
-    train(pretrain, batch_size, exp_name)
+    
+    
+    lossList = train(pretrain, batch_size, exp_name)
+    
+
+    if torch.cuda.is_available():
+        num_gpus = torch.cuda.device_count()
+        logging.info(f"Number of available GPUs: {num_gpus}")
+        for i in range(num_gpus):
+            logging.info(f"GPU {i}: {torch.cuda.get_device_name(i)}")
+    else:
+        logging.info("No GPUs available.")
+
+    
+    
+    draw_loss(lossList, 'train', '/mntcephfs/lab_data/mazhuoheng/MDS5210-23fall/src/runs/log/AdamW_lora_100')
+    draw_loss(lossList, 'test', '/mntcephfs/lab_data/mazhuoheng/MDS5210-23fall/src/runs/log/AdamW_lora_100')
 
 
 if __name__ == "__main__":
+    logging.basicConfig(filename="/mntcephfs/lab_data/mazhuoheng/MDS5210-23fall/src/runs/log/AdamW_lora_100/A800_2_20000iter_AdamW_lora_100.log", level=logging.INFO)
     main()

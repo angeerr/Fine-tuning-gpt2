@@ -7,6 +7,7 @@ from tqdm import tqdm
 import random
 import json
 import os
+import numpy as np
 from tokenizer import TiktokenTokenizer
 
 
@@ -17,7 +18,7 @@ class DahoasSFTStaticPromptsDataset(Dataset):
                  max_examples=None,
                  tokenizer_name='tiktoken/gpt2') -> None:
         super().__init__()
-        dataset = load_dataset("Dahoas/rm-static", split="train")
+        dataset = load_dataset("Dahoas/rm-static/data", split="train")
         self.prompts = []
 
         if tokenizer_name == "huggingface/gpt2":
@@ -25,6 +26,7 @@ class DahoasSFTStaticPromptsDataset(Dataset):
             tokenizer.pad_token = tokenizer.eos_token
         elif tokenizer_name == "huggingface/gpt2fast":
             tokenizer = GPT2TokenizerFast.from_pretrained('gpt2')
+            tokenizer.pad_token = tokenizer.eos_token
         elif tokenizer_name == "tiktoken/gpt2":
             tokenizer = TiktokenTokenizer('gpt2')
 
@@ -75,7 +77,7 @@ class RLHFDataset(Dataset):
         if os.path.exists(cache_dir):
             dataset = datasets.load_from_disk(cache_dir)
         else:
-            dataset = load_dataset("Anthropic/hh-rlhf", split=split)
+            dataset = load_dataset("Anthropic/hh-rlhf", split=split, data_dir='helpful-base')
             dataset.save_to_disk(cache_dir)
         self.pairs = []
         self.masks = []
@@ -90,8 +92,10 @@ class RLHFDataset(Dataset):
 
         torch.manual_seed(123) # ensure consistent dataset split
         num_data = len(dataset) // 2
-        mask = ~torch.isin(torch.randperm(num_data), torch.arange(len(dataset)))
-        sub_dset = dataset[mask]
+        # mask = ~torch.isin(torch.randperm(num_data), torch.arange(len(dataset)))
+        # sub_dset = dataset[mask]
+        selected_idx_list = np.random.choice(len(dataset), num_data, replace=False)
+        sub_dset = dataset[selected_idx_list]
 
         print(f"Loading RLHF Dataset...")
         for i in tqdm(range(num_data)):
@@ -139,7 +143,7 @@ class SFTDataset(Dataset):
                 dataset_chosen = json.load(fp)
         else:
             save = True
-            dataset = load_dataset("Anthropic/hh-rlhf", split=split)
+            dataset = load_dataset("hh-rlhf", split=split, data_dir='helpful-base')
 
             # split half for SFT
             torch.manual_seed(123) # for consistent dataset split
@@ -206,6 +210,7 @@ class EYLSFTStaticDataset(Dataset):
             tokenizer.pad_token = tokenizer.eos_token
         elif tokenizer_name == "huggingface/gpt2fast":
             tokenizer = GPT2TokenizerFast.from_pretrained('gpt2')
+            tokenizer.pad_token = tokenizer.eos_token
         elif tokenizer_name == "tiktoken/gpt2":
             tokenizer = TiktokenTokenizer('gpt2')
 
@@ -295,7 +300,7 @@ class DahoasRMStaticDataset(Dataset):
         super().__init__()
 
         #dataset = load_dataset("Dahoas/rm-static", split=split)
-        dataset = load_dataset(r"C:\Users\14045\Desktop\rm_static", split=split)
+        dataset = load_dataset("/mntcephfs/lab_data/mazhuoheng/MDS5210-23fall/src/rm-static/data", split=split) #r"C:\Users\14045\Desktop\rm_static"
         self.pairs = []
         self.masks = []
 
@@ -342,7 +347,7 @@ class DahoasRMStaticDataset(Dataset):
     def save(cls, split, fp):
 #C:\Users\14045\Desktop\rm_static
         #dataset = load_dataset("Dahoas/rm-static", split=split)
-        dataset = load_dataset(r"C:\Users\14045\Desktop\rm_static", split=split)
+        dataset = load_dataset("/mntcephfs/lab_data/mazhuoheng/MDS5210-23fall/src/rm-static/data", split=split) #"r"C:\Users\14045\Desktop\rm_static""
         examples = []
         for data in tqdm(dataset):
             examples.append(data["prompt"] + data["chosen"])
@@ -368,7 +373,7 @@ class AnthropicHHRLHFDataset(Dataset):
                  tokenizer_name='tiktoken/gpt2') -> None:
         super().__init__()
         #dataset = load_dataset("Anthropic/hh-rlhf", split=split)
-        dataset = load_dataset(r"C:\Users\14045\Desktop\hh-rlhf-master", split=split)
+        dataset = load_dataset("/mntcephfs/lab_data/mazhuoheng/MDS5210-23fall/src/hh-rlhf", split=split) #r"C:\Users\14045\Desktop\hh-rlhf-master"
         self.pairs = []
         self.masks = []
 
@@ -411,7 +416,7 @@ class AnthropicHHRLHFDataset(Dataset):
     def save(cls, split, fp):
         #C:\Users\14045\Desktop\hh-rlhf-master
         #dataset = load_dataset("Anthropic/hh-rlhf", split=split)
-        dataset = load_dataset(r"C:\Users\14045\Desktop\hh-rlhf-master", split=split)
+        dataset = load_dataset("/mntcephfs/lab_data/mazhuoheng/MDS5210-23fall/src/hh-rlhf/", split=split) #r"C:\Users\14045\Desktop\hh-rlhf-master"
         examples = []
         for data in tqdm(dataset):
             examples.append(data["chosen"])

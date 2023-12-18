@@ -47,7 +47,7 @@ def generate_gpt2(model, prompt, device):
 @click.option('--ppo', '-p')
 def main(sft, ppo):
     keys = json.load(open("openai.key"))
-    os.environ["OPENAI_API_KEY"] = keys["OPENAI_API_KEY"]#change the line with openai api key
+    os.environ["OPENAI_API_KEY"] = keys["OPENAI_API_KEY"] # change the line with openai api key
 
     with open("prompts.csv", encoding='utf-8') as fp:
         reader = csv.DictReader(fp)
@@ -65,9 +65,9 @@ def main(sft, ppo):
             gpt_sft = torch.compile(GPT.from_checkpoint(
                 cfg,
                 sft))
-            gpt_ppo = torch.compile(GPT.from_checkpoint(
-                cfg,
-                ppo))
+            # gpt_ppo = torch.compile(GPT.from_checkpoint(
+            #     cfg,
+            #     ppo))
 
             responses = []
             for prompt in tqdm(prompts):
@@ -76,8 +76,8 @@ def main(sft, ppo):
                                len(f"Human: {prompt}\n\nAssistant: "):],
                     "sft": generate_gpt2(gpt_sft, f"Human: {prompt}\n\nAssistant: ", device)[
                            len(f"Human: {prompt}\n\nAssistant: "):],
-                    "ppo": generate_gpt2(gpt_ppo, f"Human: {prompt}\n\nAssistant: ", device)[
-                           len(f"Human: {prompt}\n\nAssistant: "):],
+                    #"ppo": generate_gpt2(gpt_ppo, f"Human: {prompt}\n\nAssistant: ", device)[
+                    #       len(f"Human: {prompt}\n\nAssistant: "):],
                     "prompt": prompt
                 })
             with open("responses.json", "w") as fp:
@@ -186,60 +186,64 @@ Which one is better? A or B?
     print("favor_vanilla_over_sft", favor_vanilla_over_sft,
           favor_vanilla_over_sft / (favor_vanilla_over_sft + favor_sft_over_vanilla))
 
-    favor_ppo_over_vanilla, favor_vanilla_over_ppo = 0, 0
-    ppo_vanilla = []
-    for response in tqdm(responses):
-        text = prompt.format(prompt=response["prompt"], answer_a=response["vanilla"], answer_b=response["ppo"])
-        result = llm(text)[0]
-        if result == "A":
-            favor_vanilla_over_ppo += 1
-            ppo_vanilla.append({
-                "winner": "vanilla",
-                "ppo": response["ppo"],
-                "vanilla": response["vanilla"],
-            })
-        elif result == "B":
-            favor_ppo_over_vanilla += 1
-            ppo_vanilla.append({
-                "winner": "ppo",
-                "ppo": response["ppo"],
-                "vanilla": response["vanilla"],
-            })
-        else:
-            print("error result ", result)
-    print("favor_ppo_over_vanilla", favor_ppo_over_vanilla,
-          favor_ppo_over_vanilla / (favor_vanilla_over_ppo + favor_ppo_over_vanilla))
-    print("favor_vanilla_over_ppo", favor_vanilla_over_ppo,
-          favor_vanilla_over_ppo / (favor_vanilla_over_ppo + favor_ppo_over_vanilla))
+    '''Uncomment unless have a PPO model'''
+    # favor_ppo_over_vanilla, favor_vanilla_over_ppo = 0, 0
+    # ppo_vanilla = []
+    # for response in tqdm(responses):
+    #     text = prompt.format(prompt=response["prompt"], answer_a=response["vanilla"], answer_b=response["ppo"])
+    #     result = llm(text)[0]
+    #     if result == "A":
+    #         favor_vanilla_over_ppo += 1
+    #         ppo_vanilla.append({
+    #             "winner": "vanilla",
+    #             "ppo": response["ppo"],
+    #             "vanilla": response["vanilla"],
+    #         })
+    #     elif result == "B":
+    #         favor_ppo_over_vanilla += 1
+    #         ppo_vanilla.append({
+    #             "winner": "ppo",
+    #             "ppo": response["ppo"],
+    #             "vanilla": response["vanilla"],
+    #         })
+    #     else:
+    #         print("error result ", result)
+    # print("favor_ppo_over_vanilla", favor_ppo_over_vanilla,
+    #       favor_ppo_over_vanilla / (favor_vanilla_over_ppo + favor_ppo_over_vanilla))
+    # print("favor_vanilla_over_ppo", favor_vanilla_over_ppo,
+    #       favor_vanilla_over_ppo / (favor_vanilla_over_ppo + favor_ppo_over_vanilla))
 
-    favor_ppo_over_sft, favor_sft_over_ppo = 0, 0
-    sft_ppo = []
-    for response in tqdm(responses):
-        text = prompt.format(prompt=response["prompt"], answer_a=response["sft"], answer_b=response["ppo"])
-        result = llm(text)[0]
-        if result == "A":
-            favor_sft_over_ppo += 1
-            sft_ppo.append({
-                "winner": "sft",
-                "ppo": response["ppo"],
-                "sft": response["sft"],
-            })
-        elif result == "B":
-            favor_ppo_over_sft += 1
-            sft_ppo.append({
-                "winner": "ppo",
-                "ppo": response["ppo"],
-                "sft": response["sft"],
-            })
-        else:
-            print("error result ", result)
-    print("favor_ppo_over_sft", favor_ppo_over_sft,
-          favor_ppo_over_sft / (favor_sft_over_ppo + favor_ppo_over_sft))
-    print("favor_sft_over_ppo", favor_sft_over_ppo,
-          favor_sft_over_ppo / (favor_sft_over_ppo + favor_ppo_over_sft))
+    # favor_ppo_over_sft, favor_sft_over_ppo = 0, 0
+    # sft_ppo = []
+    # for response in tqdm(responses):
+    #     text = prompt.format(prompt=response["prompt"], answer_a=response["sft"], answer_b=response["ppo"])
+    #     result = llm(text)[0]
+    #     if result == "A":
+    #         favor_sft_over_ppo += 1
+    #         sft_ppo.append({
+    #             "winner": "sft",
+    #             "ppo": response["ppo"],
+    #             "sft": response["sft"],
+    #         })
+    #     elif result == "B":
+    #         favor_ppo_over_sft += 1
+    #         sft_ppo.append({
+    #             "winner": "ppo",
+    #             "ppo": response["ppo"],
+    #             "sft": response["sft"],
+    #         })
+    #     else:
+    #         print("error result ", result)
+    # print("favor_ppo_over_sft", favor_ppo_over_sft,
+    #       favor_ppo_over_sft / (favor_sft_over_ppo + favor_ppo_over_sft))
+    # print("favor_sft_over_ppo", favor_sft_over_ppo,
+    #       favor_sft_over_ppo / (favor_sft_over_ppo + favor_ppo_over_sft))
 
     with open("chatgpt_preferences.json", "w") as fp:
-        json.dump(sft_vanilla + ppo_vanilla + sft_ppo, fp)
+        json.dump(sft_vanilla, fp)
+        #json.dump(sft_vanilla + ppo_vanilla + sft_ppo, fp)
+
+
 
 
 if __name__ == '__main__':
