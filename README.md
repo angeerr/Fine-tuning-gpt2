@@ -32,15 +32,15 @@ Process:
   | Optimizer | AdamW (weight decay) |
   | Test step | 200 steps |
   | Test data | 240 |
-  | Other Hyper-parameter | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW/hyperparams.json> |
-  | Training Record | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW/metrics.json> |
-  | Train error | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW/train.jpg> |
-  | Test error | [Here]<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW/test.jpg> |
+  | Other Hyper-parameter | [Here](<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW/hyperparams.json>) |
+  | Training Record | [Here](<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW/metrics.json>) |
+  | Train error | [Here](<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW/train.jpg>) |
+  | Test error | [Here](<https://github.com/roy-mzh/MDS5210-23fall/blob/main/src/runs/AdamW/test.jpg>) |
 ❗ Train 20000 (Train iteration / batch size) steps, and test in every 200 steps
 
   
 *4.1(B)*
-- Run `eval.py` to evaluate the performance of vanilla gpt2-medium and sft gpt2-medium, [result detail]<https://github.com/roy-mzh/MDS5210-23fall/tree/main/src/eval_result>
+- Run `eval.py` to evaluate the performance of vanilla gpt2-medium and sft gpt2-medium, [result detail](<https://github.com/roy-mzh/MDS5210-23fall/tree/main/src/eval_result>)
   
 🚀 `eval.py` (modified on `evaluate.py`) leverages the reward model [OpenAssistant/rewardmodel-deberta-v3-large-v2](<https://huggingface.co/OpenAssistant/reward-model-deberta-v3-large-v2>) to evaluate the performance instead of using Openai Apikey  
 
