@@ -69,10 +69,10 @@ def main(pretrain, batch_size, exp_name):
 
     
     
-    draw_loss(lossList, 'train', '/mntcephfs/lab_data/mazhuoheng/MDS5210-23fall/src/runs/log/AdamW_lora_100')
-    draw_loss(lossList, 'test', '/mntcephfs/lab_data/mazhuoheng/MDS5210-23fall/src/runs/log/AdamW_lora_100')
+    draw_loss(lossList, 'train', '/mntcephfs/lab_data/mazhuoheng/MDS5210-23fall/src/runs/log/SGD_Mom_lora1')
+    draw_loss(lossList, 'test', '/mntcephfs/lab_data/mazhuoheng/MDS5210-23fall/src/runs/log/SGD_Mom_lora1')
 
 
 if __name__ == "__main__":
-    logging.basicConfig(filename="/mntcephfs/lab_data/mazhuoheng/MDS5210-23fall/src/runs/log/AdamW_lora_100/A800_2_20000iter_AdamW_lora_100.log", level=logging.INFO)
+    logging.basicConfig(filename="/mntcephfs/lab_data/mazhuoheng/MDS5210-23fall/src/runs/log/SGD_Mom_lora1/SGD_Mom_lora1.log", level=logging.INFO)
     main()

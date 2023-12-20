@@ -16,7 +16,7 @@ class TrainingConfig:
     grad_clip: float = 1.0
     exp_name: str = ""
     batch_size: int = 1
-    lr: float = 0.0001
+    lr: float = 0.0002
     lora_rank: int = 0
     pretrain: str = "huggingface"
     activation_checkpointing: bool = False

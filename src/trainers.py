@@ -86,7 +86,7 @@ class SFTTrainer(Trainer):
     def fit(self):
 
         '''Initialization'''
-        self.run_name = 'A800_2_20000iter_SGD_Mom_lora_2' # perfix of file
+        self.run_name = 'SGD_Mom_lora1' # perfix of file
         save_step = 10000
         eval_step = 200
         test_num = 240
@@ -95,9 +95,9 @@ class SFTTrainer(Trainer):
         test_data = self.test_dataloader
         model = self.model.to(self.device)
         
-        #optimizer = torch.optim.AdamW(self.model.parameters(), lr=self.cfg.lr, betas=(self.cfg.adam_beta1, self.cfg.adam_beta2),weight_decay=1e-1) #AdamW
+        #optimizer = torch.optim.AdamW(self.model.parameters(), lr=self.cfg.lr, betas=(self.cfg.adam_beta1, self.cfg.adam_beta2),weight_decay=1e-6) #AdamW
         #optimizer = torch.optim.SGD(self.model.parameters(), lr=self.cfg.lr, weight_decay=1e-1) #SGD
-        optimizer = torch.optim.SGD(self.model.parameters(), lr=self.cfg.lr, momentum=0.9, weight_decay=1e-1) #SGD with momentum
+        optimizer = torch.optim.SGD(self.model.parameters(), lr=self.cfg.lr, momentum=0.9, weight_decay=1e-6) #SGD with momentum
         #optimizer = torch.optim.SGD(self.model.parameters(), lr=self.cfg.lr, momentum=0.9, nesterov=True, weight_decay=1e-1) #SGD with Nesterov
 
         self.optimizer = optimizer
