@@ -1,16 +1,5 @@
 # MDS5210-23fall
 
-
-To do:
--
-- report
-
-
-finish:
--
-- trainer.py train a simple model @jiangan
-- rest @zhuoheng
-
 Note:
 -
 ⚠ 
